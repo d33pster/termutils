@@ -1,0 +1,23 @@
+[package]
+name = "termutils"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+argrust = "0.1.0"
+chrono = "0.4.38"
+colored = "2.1.0"
+git2 = "0.18.3"
+rustypath = "0.1.1"
+
+[[bin]]
+name = "cls"
+path = "src/cls.rs"
+
+[[bin]]
+name = "term"
+path = "src/main.rs"
+
+[[bin]]
+name = "gst"
+path = "src/gst.rs"
