@@ -22,6 +22,11 @@ fn main() {
         }
     };
 
+    if statuses.len() == 0 {
+        println!("Up to date.");
+        std::process::exit(0);
+    }
+
     let mut count = 0;
     // new files
     for entry in statuses.iter() {
