@@ -2,6 +2,13 @@
 name = "termutils"
 version = "0.1.0"
 edition = "2021"
+authors = ["Soumyo Deep Gupta <deep.main.ac@gmail.com>"]
+keywords = ["d33pster", "termutils", "terminal-utilities", "utilities", "terminal"]
+description = "All your favourite utilities in one place."
+readme = "README.md"
+license-file = "LICENSE"
+repository = "https://github.com/d33pster/termutils"
+categories = ["command-line-utilities", "filesystem"]
 
 [dependencies]
 argrust = "0.1.0"
