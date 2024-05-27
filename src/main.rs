@@ -104,6 +104,8 @@ fn main() {
         // [OPTIONS] (macos)
         // 1. init, else
         // 2. <appname>
+        // [OPTIONS] (linux)
+        // 1. init
 
 
         if cfg!(target_os = "macos") || cfg!(target_os="linux") {
@@ -185,7 +187,7 @@ fn main() {
                 eprintln!("Did you mean CALLABLE INIT?");
                 std::process::exit(1);
             } else if create_args.ifarg_force("callable") && create_args.ifarg_force("init")==false {
-                // if only callable is there, look for args
+                // if only callable is there, look for args in macos
                 if cfg!(target_os = "macos") {
                     let mut callable_args = Arguments::new(create_args.fetch("callable", FetchTypes::TillLast).get());
                     callable_args.add("application", ArgumentDescription::new().short("-app"));
@@ -327,9 +329,25 @@ fn main() {
                             _command_desc = "Callable Command".to_string();
                         }
 
-                        println!("Enter your bash code here:");
+                        // modify nickname
+                        let nickname_temp = command_nickname.clone();
+                        let nickname_words: Vec<&str> = nickname_temp.split(" ").collect();
+                        if nickname_words.len() > 1 {
+                            command_nickname = nickname_words[0].to_string();
+                            let mut count = 0;
+                            for entry in nickname_words {
+                                if count == 0 {
+                                    count += 1;
+                                    continue;
+                                }
+
+                                command_nickname = command_nickname + "_" + entry;
+                            }
+                        }
+
+                        println!("Enter your command body here (shell):");
                         let mut content = String::new();
-                        content = content + "# command: " + &command_name + "\n# nickname: " + &command_nickname + "\n# description: " + &_command_desc + "\nfunction " + &command_nickname + "() {";
+                        content = content + "\n# command: " + &command_name + "# nickname: " + &command_nickname + "# description: " + &_command_desc + "function " + &command_nickname.replace("\n", "") + "() {\n";
                         let mut count = 1;
                         loop {
                             let mut buffer = String::new();
@@ -340,11 +358,11 @@ fn main() {
                             if buffer == "END\n" {
                                 break;
                             }
-                            content = content + &buffer;
+                            content = content + "    " + &buffer;
                             count += 1;
                         }
 
-                        content = content + "\n}\n";
+                        content = content + "}\n";
 
                         let mut commandfile = std::fs::OpenOptions::new()
                             .append(true)
@@ -393,6 +411,22 @@ fn main() {
                         std::process::exit(1);
                     });
 
+                    // modify nickname
+                    let nickname_temp = command_nickname.clone();
+                    let nickname_words: Vec<&str> = nickname_temp.split(" ").collect();
+                    if nickname_words.len() > 1 {
+                        command_nickname = nickname_words[0].to_string();
+                        let mut count = 0;
+                        for entry in nickname_words {
+                            if count == 0 {
+                                count += 1;
+                                continue;
+                            }
+
+                            command_nickname = command_nickname + "_" + entry;
+                        }
+                    }
+
                     print!("Command Description (optional, press ENTER/RETURN for default): ");
                     std::io::stdout().flush().unwrap_or_else(|error| {
                         eprintln!("Failed to fetch command description: {}", error);
@@ -411,7 +445,7 @@ fn main() {
 
                     println!("Enter your command body here (shell):");
                     let mut content = String::new();
-                    content = content + "# command: " + &command_name + "\n# nickname: " + &command_nickname + "\n# description: " + &_command_desc + "\nfunction " + &command_nickname + "() {";
+                    content = content + "\n# command: " + &command_name + "# nickname: " + &command_nickname + "# description: " + &_command_desc + "function " + &command_nickname.replace("\n", "") + "() {\n";
                     let mut count = 1;
                     loop {
                         let mut buffer = String::new();
@@ -422,11 +456,11 @@ fn main() {
                         if buffer == "END\n" {
                             break;
                         }
-                        content = content + &buffer;
+                        content = content + "    " + &buffer;
                         count += 1;
                     }
 
-                    content = content + "\n}\n";
+                    content = content + "}\n";
 
                     let mut commandfile = std::fs::OpenOptions::new()
                         .append(true)
@@ -470,11 +504,14 @@ fn helper(version: &Version) {
         println!("                         $ term create callable -app <appname> <nickname> <optional-system-flag>");
     } else if cfg!(target_os = "linux") {
         println!("               | callable or -cal  : create a callable command (shell)");
+        println!("                    | SUBOPTIONS (for callable) |");
+        println!("                         | init or -i          : initialise callables");
     }
 
     println!("\n[COMMANDS]");
     println!("cls    : clear the screen");
     println!("gst    : git status");
+    println!("gcl    : git clone");
 }
 
 fn license() {
