@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 argrust = "0.1.0"
 chrono = "0.4.38"
+colored = "2.1.0"
 colorized = "1.0.0"
 git2 = "0.18.3"
 rustypath = "0.1.1"
@@ -21,3 +22,7 @@ path = "src/main.rs"
 [[bin]]
 name = "gst"
 path = "src/gst.rs"
+
+[[bin]]
+name = "gcl"
+path = "src/gcl.rs"
