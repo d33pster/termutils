@@ -189,7 +189,7 @@ fn main() {
             ign = ign + ", " + entry;
         }
 
-        println!("{}", "Ignored\\".color(Colors::BlackBg).color(Colors::GreenFg));
+        println!("{}", "Ignored\\");
         println!("    {}", ign);
     }
 
