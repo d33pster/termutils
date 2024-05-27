@@ -234,3 +234,5 @@ done.
 > All the long arguments are used in the examples, feel free to use the shorter version of the arguments or a mixture of them.
 
 > To create similar argument parsing in your own rust project, check out [`argrust`](https://crates.io/crates/argrust).
+
+> Suggestions and Contributions are welcome, submit an issue [here](https://github.com/d33pster/termutils/issues) or create a pull request [here](https://github.com/d33pster/termutils/pulls).
