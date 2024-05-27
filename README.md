@@ -11,6 +11,7 @@
   - [`gcl`](#gcl)
   - [Custom Callable command creation (in shell)](#custom-callable-command-creation-in-shell)
   - [Custom Callable command creation for macOS Applications (both external and system)](#custom-callable-command-creation-for-macos-applications-both-external-and-system)
+- [NOTE](#note)
 
 ## Features
 
@@ -227,3 +228,9 @@ $ store
 Opening store...
 done.
 ```
+
+### NOTE
+
+> All the long arguments are used in the examples, feel free to use the shorter version of the arguments or a mixture of them.
+
+> To create similar argument parsing in your own rust project, check out [`argrust`](https://crates.io/crates/argrust).
